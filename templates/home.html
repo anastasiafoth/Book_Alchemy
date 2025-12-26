@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  </head>
+  <body>
+    <form method="GET" action="/">
+  <select name="sort">
+    <option value="">-- Sort by --</option>
+    <option value="title"
+            {% if request.args.get('sort') == 'title' %}
+            selected{% endif %}>
+      Title
+    </option>
+    <option value="author"
+            {% if request.args.get('sort') == 'author' %}
+            selected{% endif %}>
+      Author
+    </option>
+  </select>
+
+  <select name="direction">
+    <option value="asc"
+            {% if request.args.get('direction', 'asc') == 'asc' %}
+            selected{% endif %}>
+      Ascending
+    </option>
+    <option value="desc"
+            {% if request.args.get('direction') == 'desc' %}
+            selected{% endif %}>
+      Descending
+    </option>
+  </select>
+  <button type="submit">Sort</button>
+
+  <br><br>
+    {% for book in books %}
+    <img src="{{ book.cover_url }}" alt="Book cover">
+    <div> <h3>{{ book.title }} — {{ book.author.author_name }}</h3>
+    </div>
+    {% endfor %}
+
+  </body>
+</html>
