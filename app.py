@@ -4,6 +4,7 @@ import os
 from data_models import db, Author, Book
 from datetime import datetime
 import requests
+from sqlalchemy import or_
 app = Flask(__name__)
 
 basedir = os.path.abspath(os.path.dirname(__file__))
@@ -88,10 +89,21 @@ def home():
     # Sorting
     sort = request.args.get('sort')
     direction = request.args.get('direction', 'asc')
+    search_query = request.args.get('search')
 
     # Join needed for query
     query = Book.query.join(Author)
 
+    # Search
+    if search_query:
+        search_query = search_query.strip()
+        query = query.filter(
+            or_(
+            Book.title.like(f'%{search_query}%'),
+            Author.author_name.like(f'%{search_query}%')
+        ))
+
+    # Sort
     if sort == 'title':
         query = query.order_by(
             Book.title.desc() if direction == 'desc'
@@ -103,6 +115,7 @@ def home():
             Author.author_name.desc() if direction == 'desc'
             else Author.author_name.asc()
         )
+
     books = query.all()
 
     # Gets the cover for each book
