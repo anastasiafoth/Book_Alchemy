@@ -6,44 +6,40 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
   </head>
   <body>
+
     <form method="GET" action="/">
-    <select name="sort">
-      <option value="">-- Sort by --</option>
-      <option value="title"
-            {% if request.args.get('sort') == 'title' %}
-            selected{% endif %}>
-        Title
-      </option>
-    <option value="author"
-            {% if request.args.get('sort') == 'author' %}
-            selected{% endif %}>
-        Author
-      </option>
-  </select>
+        <label for="sort">Sort by:</label>
+          <select name="sort" id="sort">
+            <option value="">-- Sort by --</option>
+            <option value="title">Title</option>
+            <option value="author">Author</option>
+          </select>
 
-  <select name="direction">
-    <option value="asc"
-            {% if request.args.get('direction', 'asc') == 'asc' %}
-            selected{% endif %}>
-      Ascending
-    </option>
-    <option value="desc"
-            {% if request.args.get('direction') == 'desc' %}
-            selected{% endif %}>
-      Descending
-    </option>
-  </select>
-  <button type="submit">Sort</button>
-  <br><br>
-      <label for="search">Search in book title or author name:</label>
-      <input type="text" id="search" name="search">
-      <input type="submit" value="Search">
-
+          <select name="direction">
+            <option value="asc">Ascending</option>
+            <option value="desc">Descending</option>
+          </select>
+        <button type="submit">Sort</button>
+    <br><br>
+        <label for="search">Search in book title or author name:</label>
+          <input type="text" id="search" name="search">
+          <input type="submit" value="Search">
+    </form>
         <br><br>
     {% if books %}
       {% for book in books %}
-        <img src="{{ book.cover_url }}" alt="Book cover">
+        {% if book.cover_url %}
+           <img src="{{ book.cover_url }}" alt="Book cover">
+        {% else %}
+           <img src="/static/placeholder.jpg" alt="No cover available">
+        {% endif %}
+
         <div> <h3>{{ book.title }} — {{ book.author.author_name }}</h3>
+            <form action="{{ url_for('delete_book', book_id=book.book_id) }}"
+                  method="POST"
+                  style="display:inline;">
+                <input type="submit" value="Delete">
+            </form>
         </div>
         {% endfor %}
     {% else %}

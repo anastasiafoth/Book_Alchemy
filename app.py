@@ -27,7 +27,9 @@ def get_cover_url(title, author):
         "https://bookcover.longitood.com/bookcover",
         params={"book_title": title, "author_name": author}
     )
-    return response.json().get("url")
+    if response.ok:
+        return response.json().get("url")
+    return None
 
 @app.route('/add_author', methods=['GET', 'POST'])
 def add_author():
@@ -125,6 +127,26 @@ def home():
         )
 
     return render_template('home.html', books=books)
+
+
+@app.route('/book/<int:book_id>/delete', methods=['POST'])
+def delete_book(book_id):
+    # Join needed for query
+    book = Book.query.get(book_id)
+    author = book.author
+
+    db.session.delete(book)
+    db.session.commit()
+
+    if len(book.author.books) == 0:
+        db.session.delete(author)
+        db.session.commit()
+        flash('Book and author has been successfully deleted.', 'success')
+    else:
+        flash('Book has been successfully deleted.', 'success')
+
+    # Redirect, so that the form is empty again
+    return redirect(url_for('home'))
 
 
 # Creates all tables once
