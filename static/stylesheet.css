@@ -1,0 +1,218 @@
+/* Allgemeine Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+  padding: 20px;
+  color: #333;
+}
+
+/* Formular Container */
+form {
+  background: white;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  margin: 20px auto;
+}
+
+/* Labels */
+label {
+  display: inline-block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #555;
+}
+
+/* Input Felder */
+input[type="text"],
+input[type="date"],
+input[type="number"],
+select {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 20px;
+  border: 2px solid #e0e0e0;
+  border-radius: 5px;
+  font-size: 14px;
+  transition: border-color 0.3s ease;
+}
+
+input[type="text"]:focus,
+input[type="date"]:focus,
+input[type="number"]:focus,
+select:focus {
+  outline: none;
+  border-color: #667eea;
+}
+
+/* Submit Buttons */
+input[type="submit"],
+button[type="submit"] {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 12px 30px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+input[type="submit"]:hover,
+button[type="submit"]:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+}
+
+/* Delete Button */
+.btn-delete {
+  background: transparent;
+  color: #e74c3c;
+  padding: 8px 20px;
+  border: 2px solid #e74c3c;
+  border-radius: 5px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-left: 0;
+  flex-shrink: 0;
+}
+
+.btn-delete:hover {
+  background: #e74c3c;
+  color: white;
+}
+
+
+
+/* Bücher Container */
+.book-container {
+  background: white;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  max-width: 1000px;
+  margin: 30px auto;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Einzelnes Buch */
+.book-item {
+  display: flex;
+  flex-direction: column; /* Hier von Zeile auf Spalte umstellen */
+  align-items: center;    /* Zentriert Bild und Text */
+  padding: 30px;
+  margin-bottom: 30px;
+  border-bottom: 1px solid #e0e0e0;
+  transition: background 0.3s ease;
+  width: 100%;
+  text-align: center;     /* Text zentrieren */
+}
+
+/* Buchcover Abstand nach unten statt nach rechts */
+.book-item img {
+  width: 120px;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 5px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  margin-right: 0;        /* Alten Abstand entfernen */
+  margin-bottom: 20px;    /* Neuer Abstand zum Text */
+  flex-shrink: 0;
+}
+
+/* Buchdetails zentrieren */
+.book-details {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;    /* Zentriert den Button unter dem Text */
+}
+
+.book-details h3 {
+  color: #333;
+  margin-bottom: 10px;
+  font-size: 20px;
+  word-wrap: break-word;
+}
+
+.book-details div {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.book-details form {
+  background: transparent !important;
+  padding: 0 !important;
+  box-shadow: none !important;
+  margin: 0 !important;
+  width: auto !important;
+  max-width: none !important;
+}
+
+/* Flash Messages */
+.alert {
+  padding: 15px;
+  margin: 20px auto;
+  border-radius: 5px;
+  max-width: 600px;
+  font-weight: 500;
+}
+
+.alert-success {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.alert-error {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+.alert-warning {
+  background-color: #fff3cd;
+  color: #856404;
+  border: 1px solid #ffeaa7;
+}
+
+/* "No books found" Nachricht */
+p {
+  text-align: center;
+  color: white;
+  font-size: 18px;
+  margin-top: 20px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  body {
+    padding: 10px;
+  }
+
+  form {
+    padding: 20px;
+  }
+
+  .book-item {
+    flex-direction: column;
+  }
+
+  .book-item img {
+    float: none;
+    margin: 0 auto 15px;
+    display: block;
+  }
+}
